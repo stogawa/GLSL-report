@@ -1,0 +1,91 @@
+@use "media" as *;
+@use "color" as *;
+
+//
+// hover
+//
+@mixin hover-bgcolor($bgcolor) {
+	transition: background .4s ease;
+
+	@media (any-hover: hover) {
+		&:hover {
+			background: $bgcolor
+		}
+	}
+}
+
+@mixin hover-button($bgcolor) {
+	transition: background .4s ease;
+
+	&:after {
+		transition: transform .4s ease;
+	}
+
+	@media (any-hover: hover) {
+		&:hover {
+			background: $bgcolor;
+
+			&:after {
+				transition: transform .4s ease;
+				transform: translateX(-.3rem);
+			}
+		}
+	}
+}
+
+@mixin hover-line($cl) {
+	@media (any-hover: hover) {
+		span {
+			position: relative;
+
+			&:after {
+				position: absolute;
+				content: "";
+				width: 100%;
+				height: 2px;
+				left: 0;
+				bottom: -2px;
+				background: $cl;
+				transform: scale(0, 1);
+				transform-origin: right top;
+				transition: transform .6s ease;
+			}
+		}
+
+		&:hover span:after {
+			transform-origin: left top;
+			transform: scale(1, 1);
+		}
+	}
+}
+
+@mixin hover-opacity($opacity) {
+	@media (any-hover: hover) {
+		transition: opacity .4s ease;
+
+		&:hover {
+			opacity: $opacity;
+		}
+	}
+}
+
+@mixin hover-image {
+	@media (any-hover: hover) {
+		overflow: hidden;
+
+		figure {
+			overflow: hidden;
+		}
+
+		img {
+			scale: 1;
+			transition: scale 1s ease;
+		}
+
+		&:hover {
+			img {
+				scale: 1.1;
+			}
+		}
+	}
+}

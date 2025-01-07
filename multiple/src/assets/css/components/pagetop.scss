@@ -1,0 +1,42 @@
+@use "../abstracts/_index" as *;
+
+#pagetop {
+	display: block;
+	position: fixed;
+	width: 5.4rem;
+	height: 5.4rem;
+	bottom: 0;
+	right: min_vw(30);
+	margin-bottom: 3rem;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity .3s ease;
+
+	&:before {
+		position: absolute;
+		@include icn-pagetop("0057AA");
+		inset: 0;
+		z-index: 5;
+	}
+
+	&.is-show {
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	@media (any-hover: hover) {
+		&::before {
+			transition: background .3s ease;
+		}
+
+		&:hover {
+			&:before {
+				@include icn-pagetop("4CA223");
+			}
+		}
+	}
+
+	@include mq-max(lg) {
+		display: none;
+	}
+}

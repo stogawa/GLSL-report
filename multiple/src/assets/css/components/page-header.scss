@@ -1,0 +1,139 @@
+@use "../abstracts/_index" as *;
+
+#page-header {
+	position: relative;
+	z-index: 1;
+	background: $color-light-gray;
+	padding-block: 2.1rem 3.5rem;
+
+
+	h1 {
+		padding-left: 5.6rem;
+
+		span {
+			display: block;
+			@include flex(center, 0, wrap);
+
+			&:not(:lang(en)) {
+				@include font-style(4rem, calc(75/40), 0, $font-weight-medium);
+				margin-top: .3rem;
+			}
+
+			&:lang(en) {
+				@include font-style(1.2rem, 100%, 0, $font-weight-bold);
+				color: $color-green;
+				margin-top: -.8rem;
+				display: block;
+				width: 100%
+			}
+
+			.sm {
+				@include font-style(2.4rem);
+
+				._oval {
+					@include font-style(1.6rem, 100%);
+				}
+			}
+		}
+	}
+
+	.breadcrumbs {
+		flex: 1;
+		@include flex(center, end, wrap);
+		@include font-style(1.3rem, 100%);
+		margin-right: min_vw(17);
+
+		li {
+			a {
+				color: $color-blue;
+				font-weight: $font-weight-bold;
+				@include hover-opacity(0.6);
+			}
+
+			&:not(:first-child) {
+				position: relative;
+				margin-left: .6rem;
+				@include flex(center);
+
+				&::before {
+					display: block;
+					@include icn-line("00A2E9", 1rem, 2rem);
+					margin-right: .7rem;
+				}
+			}
+		}
+	}
+
+	@include mq-min(lg) {
+		._inner {
+			@include flex(center, between);
+		}
+
+	}
+
+	@include mq-max(lg) {
+		padding-block: 2rem 1.4rem;
+
+		h1 {
+			padding-left: 5rem;
+
+			span {
+				&:not(:lang(en)) {
+					font-size: 3.4rem;
+					margin-top: 0;
+				}
+			}
+		}
+	}
+
+	@include mq-max {
+		padding-block: vw(21, $sp) vw(10, $sp);
+
+		._inner {
+			width: vw(345, $sp);
+		}
+
+		h1 {
+			padding-left: vw(29, $sp);
+
+			span {
+				&:not(:lang(en)) {
+					@include font-style(vw(28, $sp), calc(35/28), 40)
+				}
+
+				&:lang(en) {
+					font-size: vw(10, $sp);
+					margin-top: 0;
+				}
+
+				.sm {
+					width: 100%;
+					font-size: vw(13, $sp);
+					margin-block: vw(2, $sp);
+
+					._oval {
+						font-size: vw(11, $sp);
+						padding: vw(2, $sp) vw(6, $sp);
+					}
+				}
+			}
+		}
+
+		.breadcrumbs {
+			font-size: vw(11, $sp);
+			margin: vw(2, $sp) 0 0;
+
+			li {
+				&:not(:first-child) {
+					margin-left: vw(8, $sp);
+
+					&::before {
+						margin-right: vw(7, $sp);
+						width: vw(6, $sp);
+						height: vw(18, $sp);
+					}
+				}
+			}
+		}
+	}
+}

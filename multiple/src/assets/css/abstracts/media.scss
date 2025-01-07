@@ -1,0 +1,84 @@
+//
+// media
+//
+@use "sass:map";
+
+// デザインデータ
+$pc : 1600;
+$sp : 375;
+
+// ブレイクポイント
+$xxl: 1600; //PC
+$xl: 1400; //PC_2（必要であれば）
+$lg: 1100; //タブレット
+$md: 768; //SP
+$sm: 576; //SP_2（必要であれば）
+
+/*==================================================
+min / clamp (PC用)
+==================================================*/
+@function min_vw($num) {
+	$maxWidth: 1600; //ウィンドウ最大サイズ
+	$val_vw: calc(round($num / $pc * 100 * 1000) / 1000);
+	$val_max: round($maxWidth * ($val_vw / 100)) * 1px;
+	@return min(#{$val_vw * 1vw}, #{$val_max});
+}
+
+@function clamp_vw($num) {
+	$minWidth: 1024; //ウィンドウ最小サイズ
+	$maxWidth: 1600; //ウィンドウ最大サイズ
+	$val_vw: calc(round($num / $pc * 100 * 1000) / 1000);
+	$val_min: round($minWidth * ($val_vw / 100)) * 1px;
+	$val_max: round($maxWidth * ($val_vw / 100)) * 1px;
+	@return clamp(#{$val_min}, #{$val_vw * 1vw}, #{$val_max});
+}
+
+@function clamp_vw_minus($num) {
+	$minWidth: 1024; //ウィンドウ最小サイズ
+	$maxWidth: 1600; //ウィンドウ最大サイズ
+	$val_vw: calc(round($num / $pc * 100 * 1000) / 1000);
+	$val_min: round($minWidth * ($val_vw / 100)) * 1px;
+	$val_max: round($maxWidth * ($val_vw / 100)) * 1px;
+	@return clamp(#{$val_max}, #{$val_vw * 1vw}, #{$val_min});
+}
+
+/*==================================================
+vw / vh
+==================================================*/
+@function vw($pixelsVw, $winWidth: $pc) {
+	@return calc($pixelsVw / $winWidth) * 100vw;
+}
+
+@function vh($pixelsVh, $winWidth: $pc) {
+	@return $pixelsVh / $winWidth * 100vh;
+}
+
+/*==================================================
+@media
+==================================================*/
+$breakpoint-min: (
+	xxl: 'screen and (min-width: 1601px)',
+	xl: 'screen and (min-width: 1401px)',
+	lg: 'screen and (min-width: 1101px)',
+	md: 'screen and (min-width: 769px)',
+	sm: 'screen and (min-width: 577px)',
+	) !default;
+$breakpoint-max: (
+	xxl: 'screen and (max-width: #{$xxl}px)',
+	xl: 'screen and (max-width: #{$xl}px)',
+	lg: 'screen and (max-width: #{$lg}px)',
+	md: 'screen and (max-width: #{$md}px)',
+	sm: 'screen and (max-width: #{$sm}px)',
+	) !default;
+
+@mixin mq-min($breakpoint: md) {
+	@media #{map.get($breakpoint-min, $breakpoint)} {
+		@content;
+	}
+}
+
+@mixin mq-max($breakpoint: md) {
+	@media #{map.get($breakpoint-max, $breakpoint)} {
+		@content;
+	}
+}

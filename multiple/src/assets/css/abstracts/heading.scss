@@ -1,0 +1,197 @@
+@use "media" as *;
+@use "font" as *;
+@use "flex" as *;
+@use "icon" as *;
+@use "color" as *;
+
+//
+// heading
+//
+
+@mixin heading1($color1: 0, $color2: 0, $center: 0) {
+	@if $center !=0 {
+		text-align: center;
+	}
+
+	span {
+		display: block;
+
+		&:not(:lang(en)) {
+			@include font-style(3.6rem, 100%, 40, $font-weight-bold);
+
+			@if $color1 !=0 {
+				color: $color1;
+			}
+		}
+
+		&:lang(en) {
+			position: relative;
+			@include font-style(1.2rem, 100%);
+			margin-top: .9rem;
+
+			@if $color2 !=0 {
+				color: $color2;
+			}
+
+			&:after {
+				display: block;
+				content: "";
+				width: 6.0rem;
+				border-top: 2px solid;
+				margin-top: 2.2rem;
+
+				@if $center !=0 {
+					margin-inline: auto;
+				}
+			}
+		}
+
+		&.sm {
+			@include font-style(2.4rem, 100%, 40);
+			margin-bottom: .9rem;
+		}
+
+		@include mq-max(lg) {
+			&:not(:lang(en)) {
+				font-size: 2.8rem;
+			}
+
+			&:lang(en) {
+				&:after {
+					margin-top: 1.6rem;
+				}
+			}
+		}
+
+		@include mq-max {
+			margin-inline: vw(10, $sp);
+
+			&:not(:lang(en)) {
+				font-size: vw(24, $sp);
+			}
+
+			&:lang(en) {
+				font-size: vw(10, $sp);
+				margin-top: vw(7, $sp);
+
+				&:after {
+					width: vw(39, $sp);
+					margin-top: vw(12, $sp);
+				}
+			}
+
+			&.sm {
+				font-size: vw(18, $sp);
+				margin-bottom: vw(5, $sp);
+
+			}
+		}
+	}
+}
+
+@mixin heading2 {
+	@include flex(start);
+	@include font-style(2.4rem, calc(29/24), 0, $font-weight-bold);
+	margin-left: -2rem;
+
+	&:before {
+		display: block;
+		@include icn-circle(2.0rem, 2.0rem);
+		margin: .5rem 1rem 0 0;
+	}
+
+	@include mq-max {
+		@include font-style(vw(18, $sp), calc(26/18));
+		margin-inline: 0;
+
+		&:before {
+			width: vw(16, $sp);
+			height: vw(16, $sp);
+			margin-right: vw(8, $sp);
+		}
+	}
+}
+
+@mixin heading-circle($center: 0) {
+	@if $center ==center {
+		@include flex(center);
+
+	}
+
+	@else if $center ==start {
+		@include flex(start);
+	}
+
+	margin-inline: min_vw(30);
+
+	&:before {
+		display: block;
+		@include icn-circle(2.0rem, 2.0rem);
+		margin-right: 1rem;
+
+		@if $center ==start {
+			margin-top: .9rem;
+		}
+	}
+
+	@include mq-max(lg) {
+		margin-inline: vw(30, $lg);
+	}
+
+	@include mq-max {
+		margin-inline: vw(20, $sp);
+
+		&:before {
+			width: vw(16, $sp);
+			height: vw(16, $sp);
+			margin-right: vw(8, $sp);
+		}
+	}
+}
+
+@mixin heading-num {
+	@include flex(start);
+	margin-inline: min_vw(30);
+
+	span {
+		&.num {
+			position: relative;
+			@include font-en-italic;
+			@include font-style(6rem, 100%);
+			color: $color-light-blue;
+			@include flex(center);
+
+			&:after {
+				display: block;
+				@include icn-line("00A2E9", 1.2rem, 3.0rem);
+				margin-left: .5rem;
+			}
+		}
+
+		&:not(.num) {
+			@include font-style(2rem, calc(29/20), 0, $font-weight-medium);
+			margin: 1.8rem 0 0 .8rem;
+
+		}
+	}
+
+	@include mq-max {
+		span {
+			&.num {
+				font-size: vw(40, $sp);
+
+				&:after {
+					width: vw(8, $sp);
+					height: vw(25, $sp);
+					margin: vw(7, $sp) 0 0 vw(4, $sp);
+
+				}
+			}
+
+			&:not(.num) {
+				font-size: vw(16, $sp);
+				margin: vw(11, $sp) 0 0 vw(5, $sp);
+			}
+		}
+	}
+}

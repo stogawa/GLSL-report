@@ -1,0 +1,89 @@
+@use "../abstracts/_index" as *;
+
+//
+// global
+//
+@include mq-min {
+	._sp {
+		display: none !important
+	}
+}
+
+@include mq-max {
+	._pc {
+		display: none !important
+	}
+}
+
+._cl-blu {
+	color: $color-blue;
+}
+
+._cl-grn {
+	color: $color-green;
+}
+
+._indent {
+	text-indent: -1em;
+	padding-left: 1em;
+}
+
+._inner {
+	@include inner();
+}
+
+._bgtxt {
+	position: absolute;
+	white-space: nowrap;
+	@include font-style(24rem, 100%, -20, $font-weight-bold, $font-family-en);
+	color: rgba($color-blue, 0.1);
+	left: 50%;
+	transform: translateX(-50%);
+
+	@include mq-max(lg) {
+		font-size: vw(240, $lg);
+	}
+
+	@include mq-max {
+		font-size: vw(100, $sp);
+	}
+}
+
+._btn-base {
+	display: block;
+	color: $color-blue;
+	border: 1px solid;
+	@include font-style(0, calc(20/16), 0, $font-weight-medium);
+	position: relative;
+	@include flex(center, between);
+	margin-top: 2.8rem;
+	padding: .9rem 1.4rem;
+	&:after {
+		display: block;
+		@include icn-arrow("0057AA", "fff", 1.6rem, 1.6rem);
+	}
+
+	em {
+		font-weight: $font-weight-bold;
+	}
+
+	@include mq-max {
+		margin-top: vw(28, $sp);
+		padding: vw(9, $sp) vw(9, $sp) vw(9, $sp) vw(14, $sp);
+
+		&:after {
+			width: vw(16, $sp);
+			height: vw(16, $sp)
+		}
+	}
+}
+
+._note {
+	text-indent: -1em;
+	padding-left: 1em;
+	@include font-style(1.4rem, calc(19/14));
+
+	@include mq-max {
+		@include font-style(vw(11, $sp), calc(14/11));
+	}
+}

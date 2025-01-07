@@ -1,0 +1,365 @@
+@use "../abstracts/_index" as *;
+
+#menu {
+	@include mq-min(lg) {
+		display: none;
+	}
+
+	@include mq-max(lg) {
+		opacity: 0;
+		pointer-events: none;
+		position: fixed;
+		inset: 0;
+		height: 100svh;
+		z-index: 9;
+		background: $color-light-gray;
+		overflow: scroll;
+		transition: opacity .3s ease .5s;
+
+		.is-open & {
+			opacity: 1;
+			pointer-events: auto;
+			height: 100%;
+		}
+
+		.menu-gnav-list {
+			margin: 9.1rem vw(30, $lg) 5rem;
+
+			>li {
+				+li {
+					margin-top: 4rem;
+				}
+
+				>a {
+					position: relative;
+					@include font-style(2rem, calc(29/20), 0, $font-weight-bold);
+					@include flex(center);
+
+					&:after {
+						display: block;
+						@include icn-arrow("0057AA", "fff", 1.6rem, 1.6rem);
+						margin-left: 1.6rem;
+					}
+				}
+
+				&:nth-child(1)>a:before {
+					display: block;
+					@include icn-cross("000", 2.4rem, 2.4rem);
+					margin-right: 1rem;
+				}
+
+				&:nth-child(2)>a:before {
+					display: block;
+					@include icn-inspection("000", 2.4rem, 2.4rem);
+					margin-right: 1rem;
+				}
+
+				&:nth-child(3)>a:before {
+					display: block;
+					@include icn-brain("000", 3rem, 2.7rem);
+					margin-right: 1rem;
+				}
+
+				&:nth-last-child(3) {
+					margin-top: 7rem;
+				}
+
+				&:nth-last-child(2),
+				&:last-child {
+					margin-top: 2rem;
+				}
+				&.current {
+					>a {
+						color: $color-blue;
+					}
+				}
+			}
+
+			.drop {
+				border-left: 1px dotted $color-blue;
+				margin: 1.5rem 0 0 1.1rem;
+				padding: 1rem 0 1rem 2.5rem;
+
+				li {
+					+li {
+						margin-top: 2rem;
+					}
+
+					a {
+						color: $color-blue;
+						@include font-style(1.5rem, calc(21/15), 40, $font-weight-bold)
+					}
+				}
+			}
+		}
+
+		.cont-mail,
+		.cont-tel,
+		.cont-web {
+			color: $color-white;
+			text-align: center;
+			padding-block: 4.4rem 5rem;
+			border-top: 1px solid $color-gray;
+
+			.ttl {
+				@include font-style(2rem, 100%, 20, $font-weight-bold);
+
+				._oval {
+					@include font-style(1.1rem, 100%);
+					margin-left: 1rem
+				}
+			}
+		}
+
+		.cont-tel {
+			@include flex-align;
+			background: $color-blue;
+			padding-bottom: 6rem;
+
+			a {
+				position: relative;
+				@include font-style(3.6rem, calc(64/50), 0, $font-weight-bold, $font-family-en);
+				margin-block: 1.7rem .5rem;
+				@include flex(center);
+
+				&:before {
+					display: block;
+					@include icn-tel(fff, 2.3rem, 3.2rem);
+					margin-right: .9rem;
+				}
+			}
+		}
+
+		.cont-mail {
+			background: $color-green;
+
+			a {
+				display: inline-block;
+				border: 1px solid;
+				@include font-style(1.4rem, calc(20/18), 0, $font-weight-bold);
+				margin-top: 2.5rem;
+				position: relative;
+				@include flex(center, between, $display: inline-flex);
+				width: 28.5rem;
+				padding: 1.4rem 1rem 1.4rem 1.5rem;
+
+				&:after {
+					display: block;
+					@include icn-arrow("fff", "0057AA", 1.6rem, 1.6rem);
+				}
+
+				span {
+					position: relative;
+					@include flex(center);
+
+					&:before {
+						display: block;
+						@include icn-mail("fff", 2.8rem, 2rem);
+						margin-right: 1rem;
+					}
+				}
+			}
+		}
+
+		.cont-web {
+			background: $color-light-blue;
+
+			a {
+				display: inline-block;
+				border: 1px solid;
+				@include font-style(1.4rem, calc(20/18), 0, $font-weight-bold);
+				margin-top: 2.5rem;
+				position: relative;
+				@include flex(center, between, $display: inline-flex);
+				width: 28.5rem;
+				padding: 1.4rem 1rem 1.4rem 1.5rem;
+
+				&:after {
+					display: block;
+					@include icn-arrow("fff", "0057AA", 1.6rem, 1.6rem);
+				}
+
+				span {
+					position: relative;
+					@include flex(center);
+
+					&:before {
+						display: block;
+						@include icn-brain("fff", 3rem, 2.7rem);
+						margin-right: 1rem;
+					}
+				}
+			}
+		}
+	}
+
+	@include mq-min {
+		.menu-gnav-list {
+			@include flex(0, 0, wrap);
+
+			>li {
+				width: 50%;
+
+				+li {
+					margin-top: 4rem;
+				}
+
+				&:nth-child(1),
+				&:nth-child(2) {
+					margin-top: 2rem;
+				}
+
+				&:nth-last-child(3),
+				&:nth-last-child(2),
+				&:last-child {
+					width: calc(100%/3);
+					margin-block: 7rem 3rem;
+
+					a {
+						justify-content: center;
+					}
+				}
+			}
+
+		}
+	}
+
+	@include mq-max {
+		.menu-gnav-list {
+			margin: vw(91, $sp) vw(30, $sp) vw(50, $sp);
+
+			>li {
+				+li {
+					margin-top: vw(40, $sp);
+				}
+
+				>a {
+					font-size: vw(20, $sp);
+
+					&:after {
+						width: vw(16, $sp);
+						height: vw(16, $sp);
+						margin-left: vw(16, $sp);
+					}
+				}
+
+				&:nth-child(1)>a:before {
+					width: vw(24, $sp);
+					height: vw(24, $sp);
+					margin-right: vw(10, $sp);
+				}
+
+				&:nth-child(2)>a:before {
+					width: vw(24, $sp);
+					height: vw(24, $sp);
+					margin-right: vw(10, $sp);
+				}
+
+				&:nth-child(3)>a:before {
+					width: vw(30, $sp);
+					height: vw(27, $sp);
+					margin-right: vw(10, $sp);
+				}
+
+				&:nth-last-child(3) {
+					margin-top: vw(70, $sp);
+				}
+
+				&:nth-last-child(2),
+				&:last-child {
+					margin-top: vw(20, $sp);
+				}
+
+				.drop {
+					margin: vw(15, $sp) 0 0 vw(11, $sp);
+					padding: vw(10, $sp) 0 vw(10, $sp) vw(25, $sp);
+
+					li {
+						+li {
+							margin-top: vw(20, $sp);
+						}
+
+						a {
+							font-size: vw(15, $sp);
+						}
+					}
+				}
+			}
+		}
+
+		.cont-mail,
+		.cont-tel,
+		.cont-web {
+			padding-block: vw(44, $sp) vw(50, $sp);
+
+			.ttl {
+				font-size: vw(20, $sp);
+
+				._oval {
+					font-size: vw(11, $sp);
+					margin-left: vw(10, $sp);
+				}
+			}
+		}
+
+		.cont-tel {
+			padding-bottom: vw(60, $sp);
+
+			a {
+				font-size: vw(36, $sp);
+				margin-block: vw(17, $sp) vw(5, $sp);
+
+				&:before {
+					width: vw(23, $sp);
+					height: vw(32, $sp);
+					margin-right: vw(9, $sp);
+				}
+			}
+		}
+
+		.cont-mail {
+			a {
+				font-size: vw(14, $sp);
+				margin-top: vw(25, $sp);
+				width: vw(285, $sp);
+				padding: vw(14, $sp) vw(10, $sp) vw(14, $sp) vw(15, $sp);
+
+				&:after {
+					width: vw(16, $sp);
+					height: vw(16, $sp);
+				}
+
+				span {
+
+					&:before {
+						width: vw(28, $sp);
+						height: vw(20, $sp);
+						margin-right: vw(10, $sp);
+					}
+				}
+			}
+		}
+
+		.cont-web {
+			a {
+				font-size: vw(14, $sp);
+				margin-top: vw(25, $sp);
+				width: vw(285, $sp);
+				padding: vw(14, $sp) vw(10, $sp) vw(14, $sp) vw(15, $sp);
+
+				&:after {
+					width: vw(16, $sp);
+					height: vw(16, $sp);
+				}
+
+				span {
+					&:before {
+						width: vw(30, $sp);
+						height: vw(27, $sp);
+						margin-right: vw(10, $sp);
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,18 @@
+@use "media" as *;
+
+//
+// inner
+//
+
+@mixin inner($w: min_vw(1332)) {
+	width: $w;
+	margin-inline: auto;
+
+	@include mq-max(lg) {
+		width: vw(960, $lg);
+	}
+
+	@include mq-max {
+		width: vw(335, $sp);
+	}
+}

@@ -1,0 +1,12 @@
+@use "../abstracts/_index" as *;
+
+//
+// list
+//
+
+ul,
+ol {
+	li {
+		list-style: none;
+	}
+}

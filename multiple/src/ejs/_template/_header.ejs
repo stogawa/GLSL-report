@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title><% if(meta.title) { %><%- meta.title %> | <%- meta.site %><% } else { %><%- meta.site %><% } %></title>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="format-detection" content="telephone=on">
+<meta name="thumbnail" content="/assets/img/thumb.jpg">
+<meta name="description" content="<%- meta.description %>">
+</head>
+<body <% if(meta.bodyClass) { %>class="<%- meta.bodyClass %>"<% } %>>
+<div id="wrapper">
+	<main>
