@@ -1,0 +1,13 @@
+@use "media" as *;
+
+//
+// border-radius
+//
+
+@mixin border-radius($radius: 10) {
+	border-radius: clamp_vw($radius);
+
+	@include mq-max(md) {
+		border-radius: vw($radius, $sp);
+	}
+}

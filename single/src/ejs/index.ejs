@@ -1,0 +1,29 @@
+<%
+const pageMeta = {
+	title: 'GLSL最終課題',
+	title_span: '',
+	description: 'ホームページの説明',
+	bodyClass: 'home',
+	site: 'GLSLスクール'
+};
+
+%>
+<%- include('_template/_header', { meta: pageMeta }) %>
+
+<section id="section01">
+	<div class="canvas-area">
+		<canvas id="webgl-canvas01"></canvas>
+	</div>
+</section>
+<section id="section02">
+	<div class="canvas-area">
+		<canvas id="webgl-canvas02"></canvas>
+	</div>
+</section>
+
+<ul id="sidenav">
+	<li><a href="#section01">01</a></li>
+	<li><a href="#section02">02</a></li>
+</ul>
+
+<%- include('_template/_footer', { meta: pageMeta }); %>

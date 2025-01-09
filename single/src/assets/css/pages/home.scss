@@ -1,0 +1,51 @@
+@use "../abstracts/_index" as *;
+
+.home {
+	.canvas-container {
+		display: block;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100lvh;
+		canvas {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	section {
+		height: 100svh;
+		@include flex(center);
+	}
+	.canvas-area {
+		margin-inline: auto;
+		width: 50rem;
+		height: 50rem;
+		background: #fff;
+	}
+
+	#sidenav {
+		position: fixed;
+		top: 50%;
+		left: 5rem;
+		transform: translateY(-50%);
+		z-index: 10;
+		li {
+			border-radius: 50%;
+			background-color: red;
+			margin-block: 1rem;
+			a {
+				@include flex(center,center);
+				width: 5rem;
+				height: 5rem;
+				color: #fff;
+				&:hover {
+					opacity: 0.4;
+				}
+			}
+			&:nth-child(2) {
+				background-color: green;
+			}
+		}
+	}
+}

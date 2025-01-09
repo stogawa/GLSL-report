@@ -1,0 +1,27 @@
+@use "media" as *;
+
+//
+// animation
+//
+
+@mixin fade-animX {
+	opacity: 0;
+	transform: translateX(10%);
+	transition: .6s ease;
+
+	&.init {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@mixin fade-animY {
+	opacity: 0;
+	transform: translateY(30px);
+	transition: .6s ease;
+
+	&.init {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}

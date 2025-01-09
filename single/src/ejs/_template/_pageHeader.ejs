@@ -1,0 +1,20 @@
+<%
+const { title, title_en, title_span } = meta;
+%>
+<div id="page-header">
+	<div class="_inner">
+		<h1>
+			<span>
+				<%- title %>
+				<% if (title_span) { %>
+					<span class="sm"><%- title_span %></span>
+				<% } %>
+			</span>
+			<span lang="en"><%- title_en %></span>
+		</h1>
+		<ol class="breadcrumbs">
+			<li><a href="/">ホーム</a></li>
+			<li><%- title %></li>
+		</ol>
+	</div>
+</div>

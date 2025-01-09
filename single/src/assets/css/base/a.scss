@@ -1,0 +1,17 @@
+@use "../abstracts/_index" as *;
+
+//
+// link
+//
+
+a {
+	color: currentcolor;
+	text-decoration: none;
+}
+
+@media (any-hover: hover) {
+	a[href*="tel:"] {
+		pointer-events: none;
+		cursor: default;
+	}
+}

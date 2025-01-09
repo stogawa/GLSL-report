@@ -1,0 +1,28 @@
+@use "../abstracts/_index" as *;
+
+//
+// text
+//
+:lang(en) {
+	font-family: $font-family-en;
+}
+
+// p,
+// dt,
+// dd,
+// th,
+// td,
+// figcaption {
+// 	line-height: calc(40 / 14);
+
+// 	@include mq-max {
+// 		line-height: calc(30 / 14);
+// 	}
+// }
+
+// h3,
+// h4,
+// h5,
+// h6 {
+// 	line-height: 120%;
+// }

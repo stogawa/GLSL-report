@@ -1,0 +1,122 @@
+//
+// flex
+//
+
+// 上下中央
+@mixin flex-align($display: flex) {
+	display: $display;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+// L字型
+@mixin flex-L($display: flex) {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: end;
+	justify-content: space-between;
+
+	>*:first-child {
+		width: 100%;
+	}
+}
+
+// 縦積み
+@mixin flex-column($display: flex) {
+	display: $display;
+	flex-direction: column;
+}
+
+@mixin flex($align: 0, $justify: 0, $wrap: 0, $wrap_align: 0, $direction: 0, $display: flex) {
+	display: $display;
+
+	// align-items
+	@if $align ==start {
+		align-items: flex-start;
+	}
+
+	@else if $align ==end {
+		align-items: flex-end;
+	}
+
+	@else if $align ==center {
+		align-items: center;
+	}
+
+	@else if $align ==baseline {
+		align-items: baseline;
+	}
+
+	@else if $align ==stretch {
+		align-items: stretch;
+	}
+
+	// justify-content
+	@if $justify ==start {
+		justify-content: flex-start;
+	}
+
+	@else if $justify ==end {
+		justify-content: flex-end;
+	}
+
+	@else if $justify ==center {
+		justify-content: center;
+	}
+
+	@else if $justify ==between {
+		justify-content: space-between;
+	}
+
+	@else if $justify ==around {
+		justify-content: space-around;
+	}
+
+	// flex-wrap
+	@if $wrap ==nowrap {
+		flex-wrap: nowrap;
+	}
+
+	@else if $wrap ==wrap {
+		flex-wrap: wrap;
+	}
+
+	@else if $wrap ==reverse {
+		flex-wrap: wrap-reverse;
+	}
+
+	// align-content
+	@if $wrap_align ==start {
+		align-content: flex-start;
+	}
+
+	@else if $wrap_align ==end {
+		align-content: flex-end;
+	}
+
+	@else if $wrap_align ==center {
+		align-content: center;
+	}
+
+	@else if $wrap_align ==between {
+		align-content: space-between;
+	}
+
+	@else if $wrap_align ==around {
+		align-content: space-around;
+	}
+
+	@else if $wrap_align ==stretch {
+		align-content: stretch;
+	}
+
+	// flex-direction
+	@if $direction ==column {
+		flex-direction: column;
+	}
+
+	@else if $direction ==row-reverse {
+		flex-direction: row-reverse;
+	}
+}
