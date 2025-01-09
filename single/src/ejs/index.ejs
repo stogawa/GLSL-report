@@ -10,15 +10,15 @@ const pageMeta = {
 %>
 <%- include('_template/_header', { meta: pageMeta }) %>
 
+<div class="canvas-container">
+	<canvas id="webgl-canvas"></canvas> <!-- 1つのキャンバス -->
+</div>
+
 <section id="section01">
-	<div class="canvas-area">
-		<canvas id="webgl-canvas01"></canvas>
-	</div>
+	<!-- 1つ目のWebGL描画エリア -->
 </section>
 <section id="section02">
-	<div class="canvas-area">
-		<canvas id="webgl-canvas02"></canvas>
-	</div>
+	<!-- 2つ目のWebGL描画エリア -->
 </section>
 
 <ul id="sidenav">

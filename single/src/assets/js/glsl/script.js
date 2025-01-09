@@ -7,21 +7,12 @@ import sampleImage from '/assets/img/sample.jpg';  // Webpackによるパス解�
 import sampleImage2 from '/assets/img/sample2.jpg'; // もう1枚の画像もインポート
 
 window.addEventListener('DOMContentLoaded', async () => {
-  // 1つ目のWebGLAppインスタンス（webgl-canvas01用）
-  const app1 = new WebGLApp();
-  window.addEventListener('resize', app1.resize, false);
-  app1.init('webgl-canvas01');
-  await app1.load(sampleImage); // 初期化時にインポートした画像パスを渡す
-  app1.setup();
-  app1.render();
-
-  // 2つ目のWebGLAppインスタンス（webgl-canvas02用）
-  const app2 = new WebGLApp();
-  window.addEventListener('resize', app2.resize, false);
-  app2.init('webgl-canvas02');
-  await app2.load(sampleImage2); // 別の画像を指定
-  app2.setup();
-  app2.render();
+  const app = new WebGLApp();
+  window.addEventListener('resize', app.resize, false);
+  app.init('webgl-canvas'); // 1つのキャンバス
+  await app.load(sampleImage, sampleImage2); // 2つの画像をロード
+  app.setup();
+  app.render();
 }, false);
 
 class WebGLApp {
@@ -36,8 +27,7 @@ class WebGLApp {
     this.uTime = 0.0;
   }
 
-  async load(imageSource) {
-    // シェーダをロード
+  async load(imageSource1, imageSource2) {
     const vs = await WebGLUtility.loadFile('./main.vert');
     const fs = await WebGLUtility.loadFile('./main.frag');
     this.shaderProgram = new ShaderProgram(this.gl, {
@@ -49,11 +39,10 @@ class WebGLApp {
       type: ['uniformMatrix4fv', 'uniform1i'],
     });
 
-    // 渡された画像ソースからテクスチャを生成
-    this.texture = await this.loadTexture(imageSource); // 非同期でテクスチャを読み込む
+    this.texture1 = await this.loadTexture(imageSource1);
+    this.texture2 = await this.loadTexture(imageSource2);
   }
 
-  // 非同期で画像を読み込むメソッド
   async loadTexture(imageSource) {
     try {
       const image = await WebGLUtility.loadImage(imageSource);  // 画像の読み込みを待つ
@@ -69,11 +58,11 @@ class WebGLApp {
     const gl = this.gl;
     const texture = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D, texture);
-    
+
     // テクスチャ設定
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
     gl.generateMipmap(gl.TEXTURE_2D);
-    
+
     // テクスチャパラメータの設定
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
@@ -103,10 +92,6 @@ class WebGLApp {
     gl.clearColor(1.0, 1.0, 1.0, 0.0);
     gl.clearDepth(1.0);
     gl.enable(gl.DEPTH_TEST);
-
-    // テクスチャをバインド
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, this.texture);
   }
 
   setupGeometry() {
@@ -142,8 +127,27 @@ class WebGLApp {
     this.uTime += time * this.timeScale;
     this.previousTime = now;
 
-    gl.viewport(0, 0, this.canvas.width, this.canvas.height);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+		// this.canvas.height - section1Rect.bottom とすることで、WebGLのY軸方向をHTMLのY軸に合わせる（そうしないとスクロールが逆になる）
+   	// #section01の範囲に描画
+		const section1 = document.querySelector('#section01');
+		const section1Rect = section1.getBoundingClientRect();
+		gl.viewport(section1Rect.left, this.canvas.height - section1Rect.bottom, section1Rect.width, section1Rect.height);
+		this.renderImage(this.texture1);
+
+		// #section02の範囲に描画
+		const section2 = document.querySelector('#section02');
+		const section2Rect = section2.getBoundingClientRect();
+		gl.viewport(section2Rect.left, this.canvas.height - section2Rect.bottom, section2Rect.width, section2Rect.height);
+		this.renderImage(this.texture2);
+
+  }
+
+  renderImage(texture) {
+    const gl = this.gl;
+    const m4 = WebGLMath.Mat4;
+    const v3 = WebGLMath.Vec3;
 
     const rotateAxis = v3.create(0.0, 1.0, 0.0);
     const rotateAngle = this.uTime * 0.2;
@@ -163,11 +167,14 @@ class WebGLApp {
     this.shaderProgram.setAttribute(this.vbo);
     this.shaderProgram.setUniform([mvp, 0]);
 
+    gl.activeTexture(gl.TEXTURE0); // 2つのテクスチャを読み込むので記述位置を変更
+    gl.bindTexture(gl.TEXTURE_2D, texture); // 2つのテクスチャを読み込むので記述位置を変更
+
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, this.position.length / 3);
   }
 
   resize() {
-    const canvasArea = document.querySelector('.canvas-area');
+    const canvasArea = document.querySelector('.canvas-container');
     this.canvas.width = canvasArea.clientWidth;
     this.canvas.height = canvasArea.clientHeight;
     this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
